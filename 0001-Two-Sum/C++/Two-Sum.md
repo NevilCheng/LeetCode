@@ -37,11 +37,34 @@ public:
 
 > **代码**
 ```c++
-
-                                    
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> hashtable;
+        for(int i = 0; i < nums.size(); ++i){
+            auto it = hashtable.find(target - nums[i]);
+            if(it != hashtable.end()) {
+                return {it->second, i};
+            }
+            hashtable[nums[i]] = i;
+        }
+        return {};
+    }
+};                                  
 ```
 
+> **解析**
+- unordered_map是一个关联容器，内部采用的是hash表结构，拥有快速检索的功能。通过key去检索value，而不是通过绝对地址;键唯一性：不存在两个元素的键一样.
+- auto是根据后面的值，来自己推测前面的类型是什么。
+- end()指向最后一个元素的下一个地址，(未解决)现猜想找到的it值，在hashtable中不存在后，返回两个数的地址。即target为8，num[i]为4，而找到的8-4=4也是
 
+
+
+
+> **结果and总结**
+- 运行时间：8ms &emsp;&emsp;&emsp;&emsp; 内存消耗：9.3MB
+- 时间复杂度：O(N)，其中 N 是数组中的元素数量。对于每一个元素 x，我们可以 O(1) 地寻找 target - x。
+- 空间复杂度：O(N), 其中 N 是数组中的元素数量。主要为哈希表的开销。
 
 
 
